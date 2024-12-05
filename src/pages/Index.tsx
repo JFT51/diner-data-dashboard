@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DataTable } from '../components/DataTable';
 import { Dashboard } from '../components/Dashboard';
+import { DailyBenchmark } from './DailyBenchmark';
 
 const CSV_URL = 'https://raw.githubusercontent.com/JFT51/ExRest/refs/heads/main/ikxe.csv';
 
@@ -52,12 +53,17 @@ const Index = () => {
       <Tabs defaultValue="dashboard">
         <TabsList>
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+          <TabsTrigger value="daily-benchmark">Daily Benchmark</TabsTrigger>
           <TabsTrigger value="hourly">Hourly Data</TabsTrigger>
           <TabsTrigger value="daily">Daily Data</TabsTrigger>
         </TabsList>
 
         <TabsContent value="dashboard">
           <Dashboard hourData={hourData} dayData={dayData} />
+        </TabsContent>
+
+        <TabsContent value="daily-benchmark">
+          <DailyBenchmark hourData={hourData} dayData={dayData} />
         </TabsContent>
 
         <TabsContent value="hourly">
