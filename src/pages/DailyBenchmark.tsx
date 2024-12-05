@@ -31,15 +31,23 @@ export function DailyBenchmark({ dayData, hourData }: DailyBenchmarkProps) {
     return {
       date: selectedDate,
       visitorsEntering: Math.round(weekdayData.reduce((sum, day) => sum + day.visitorsEntering, 0) / weekdayData.length),
-      captureRate: Math.round(weekdayData.reduce((sum, day) => sum + day.captureRate, 0) / weekdayData.length * 100) / 100,
+      visitorsLeaving: Math.round(weekdayData.reduce((sum, day) => sum + day.visitorsLeaving, 0) / weekdayData.length),
       menEntering: Math.round(weekdayData.reduce((sum, day) => sum + day.menEntering, 0) / weekdayData.length),
+      menLeaving: Math.round(weekdayData.reduce((sum, day) => sum + day.menLeaving, 0) / weekdayData.length),
       womenEntering: Math.round(weekdayData.reduce((sum, day) => sum + day.womenEntering, 0) / weekdayData.length),
+      womenLeaving: Math.round(weekdayData.reduce((sum, day) => sum + day.womenLeaving, 0) / weekdayData.length),
+      groupEntering: Math.round(weekdayData.reduce((sum, day) => sum + day.groupEntering, 0) / weekdayData.length),
+      groupLeaving: Math.round(weekdayData.reduce((sum, day) => sum + day.groupLeaving, 0) / weekdayData.length),
+      passersby: Math.round(weekdayData.reduce((sum, day) => sum + day.passersby, 0) / weekdayData.length),
+      captureRate: Math.round(weekdayData.reduce((sum, day) => sum + day.captureRate, 0) / weekdayData.length * 100) / 100,
+      conversion: Math.round(weekdayData.reduce((sum, day) => sum + day.conversion, 0) / weekdayData.length * 100) / 100,
+      dwellTime: Math.round(weekdayData.reduce((sum, day) => sum + day.dwellTime, 0) / weekdayData.length),
       dataAccuracy: Math.round(weekdayData.reduce((sum, day) => sum + day.dataAccuracy, 0) / weekdayData.length * 10) / 10,
       weatherSymbol: selectedDayData?.weatherSymbol || '',
       temperature: Math.round(weekdayData.reduce((sum, day) => sum + day.temperature, 0) / weekdayData.length * 10) / 10,
       precipitation: Math.round(weekdayData.reduce((sum, day) => sum + day.precipitation, 0) / weekdayData.length * 10) / 10,
       windspeed: Math.round(weekdayData.reduce((sum, day) => sum + day.windspeed, 0) / weekdayData.length * 10) / 10,
-    };
+    } as DayData;
   }, [dayData, selectedDate, useWeekdayAverage, selectedDayData?.weatherSymbol]);
 
   const benchmarkDayData = useMemo(() => 

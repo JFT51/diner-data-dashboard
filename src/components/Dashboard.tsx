@@ -7,6 +7,7 @@ import { VisitorChart } from './VisitorChart';
 import { GenderChart } from './GenderChart';
 import { WeatherImpactChart } from './WeatherImpactChart';
 import { MetricsChart } from './MetricsChart';
+import { DateRange } from 'react-day-picker';
 
 interface DashboardProps {
   hourData: HourData[];
@@ -14,13 +15,16 @@ interface DashboardProps {
 }
 
 export function Dashboard({ hourData, dayData }: DashboardProps) {
-  const [dateRange, setDateRange] = useState({
+  const [dateRange, setDateRange] = useState<DateRange>({
     from: dayData[0]?.date,
     to: dayData[dayData.length - 1]?.date,
   });
 
   const filteredDayData = dayData.filter(
-    day => day.date >= dateRange.from && day.date <= dateRange.to
+    day => {
+      if (!dateRange.from || !dateRange.to) return true;
+      return day.date >= dateRange.from && day.date <= dateRange.to;
+    }
   );
 
   const totalVisitors = filteredDayData.reduce((sum, day) => sum + day.visitorsEntering, 0);

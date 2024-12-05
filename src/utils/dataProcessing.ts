@@ -119,9 +119,12 @@ export const aggregateDailyData = (hourData: HourData[]): DayData[] => {
   return Array.from(dailyMap.values()).map(day => {
     const captureRate = day.passersby > 0 ? (day.visitorsEntering / day.passersby) * 100 : 0;
     const conversion = day.visitorsEntering > 0 ? (day.groupEntering / day.visitorsEntering) * 100 : 0;
-    const dwellTime = day.visitorsEntering > 0 ? (day.liveVisitors / day.visitorsEntering) * 10 : 0;
-    const accuracy = Math.min(day.visitorsEntering / day.visitorsLeaving, 
-                            day.visitorsLeaving / day.visitorsEntering) * 100;
+    const dwellTime = day.visitorsEntering > 0 ? 
+      (day.accumulatedVisitors - day.accumulatedVisitorsLeaving) / day.visitorsEntering * 10 : 0;
+    const accuracy = Math.min(
+      day.visitorsEntering / day.visitorsLeaving, 
+      day.visitorsLeaving / day.visitorsEntering
+    ) * 100;
 
     return {
       ...day,
